@@ -10,6 +10,7 @@ class EncounterBuilderApp extends BaseApp {
         this.columns = [
             {fieldName: 'name', displayName: 'Name'},
             {fieldName: 'model', displayName: 'Model'},
+            {fieldName: 'starship_class_name', displayName: 'Class'},
             this.renderActions.bind(this),
         ];
         this.state = {

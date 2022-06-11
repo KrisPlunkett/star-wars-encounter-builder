@@ -4,13 +4,15 @@ from recruiting_project.encounters.models import Starship, Encounter, Mob
 
 
 class StarshipSerializer(ModelSerializer):
+    starship_class_name = CharField(source='starship_class.name', read_only=True)
 
     class Meta:
         model = Starship
         fields = [
             'name',
             'model',
-            'starship_class',
+            'starship_class_id',
+            'starship_class_name',
             'cost_in_credits',
             'crew',
             'passengers',
