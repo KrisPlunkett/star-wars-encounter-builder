@@ -1,4 +1,5 @@
 import React from 'react';
+import { DebounceInput } from 'react-debounce-input';
 import BaseApp from 'core/components/BaseApp';
 import Table from 'core/components/Table';
 import request from 'utils/request';
@@ -68,7 +69,12 @@ class EncounterBuilderApp extends BaseApp {
                 <h4>Starships</h4>
                 <form className="row">
                     <div className="col-lg-3">
-                        <input type="text" placeholder="Search" className="form-control" />
+                        <DebounceInput
+                            className="form-control"
+                            placeholder="Search"
+                            debounceTimeout={250}
+                            onChange={event => this.handleSearch(event.target.value)}
+                        />
                     </div>
                 </form>
                 <Table
@@ -107,6 +113,10 @@ class EncounterBuilderApp extends BaseApp {
         return (
             <button className="btn btn-secondary">Add</button>
         )
+    }
+
+    handleSearch(searchTerm) {
+        this.loadStarships(searchTerm)
     }
 
     loadStarships(searchTerm) {
