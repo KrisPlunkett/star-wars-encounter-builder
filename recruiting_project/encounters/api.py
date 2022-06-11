@@ -8,11 +8,18 @@ class StarshipsModelViewSet(ModelViewSet):
     """
     Model viewset for starships API
     """
-    queryset = Starship.objects.all()
     serializer_class = StarshipSerializer
-    filterset_fields = (
-        'starship_class__name',
-    )
+
+    def get_queryset(self):
+        q = self.request.query_params.get("q")
+        if q:
+            name_queryset = Starship.objects.filter(name__icontains=q)
+            model_queryset = Starship.objects.filter(model__icontains=q)
+            class_name_queryset = Starship.objects.filter(starship_class__name__icontains=q)
+            return name_queryset.union(model_queryset, class_name_queryset)
+        else:
+            return Starship.objects.all()
+
 
 
 class EncountersModelViewSet(ModelViewSet):
