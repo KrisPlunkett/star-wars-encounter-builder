@@ -32,7 +32,7 @@ You will add several capabilities to the existing application:
 - As a user, I want the list of added starships to include the ability to remove any starship from the encounter ([Issue #3](https://github.com/KrisPlunkett/star-wars-encounter-builder/issues/3))
 - As a user, I want to be able to create an encounter that includes the starships I've added ([Issue #4](https://github.com/KrisPlunkett/star-wars-encounter-builder/issues/4))
 
-1. ~~Add the starship class names to the table columns~~ (Resolved by [Pull Request #5](https://github.com/KrisPlunkett/star-wars-encounter-builder/pull/6))
+1. ~~Add the starship class names to the table columns~~ (Resolved by [Pull Request #6](https://github.com/KrisPlunkett/star-wars-encounter-builder/pull/6))
 2. Implement a change handler for the search input, live-filtering the table data based on a comparison of the input text and a union of starship name, model, and starship class name
 3. Finish implementing the add button by adding a click handler that adds the associated starship to the encounter being edited
 4. Create a new React component that will take the place of the existing `ul#encounter-starships`. The component should be a list of added starships, each with a button to remove from the encounter.
