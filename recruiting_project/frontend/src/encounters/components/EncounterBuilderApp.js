@@ -136,7 +136,7 @@ class EncounterBuilderApp extends BaseApp {
         }
 
         request.get(
-            '/encounters/api/starships',
+            '/encounters/api/starships/',
             params
         ).then((response) => {
             this.setState({
