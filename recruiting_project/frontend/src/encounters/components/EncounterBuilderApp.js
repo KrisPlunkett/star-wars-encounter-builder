@@ -9,6 +9,7 @@ class EncounterBuilderApp extends BaseApp {
         super();
 
         this.columns = [
+            {fieldName: 'id', displayName: 'ID'},
             {fieldName: 'name', displayName: 'Name'},
             {fieldName: 'model', displayName: 'Model'},
             {fieldName: 'starship_class_name', displayName: 'Class'},
@@ -16,8 +17,9 @@ class EncounterBuilderApp extends BaseApp {
         ];
         this.state = {
             encounter: {
-                starships: []
-            }
+                starships: [],
+            },
+            starships: [],
         };
     }
 
@@ -80,7 +82,7 @@ class EncounterBuilderApp extends BaseApp {
                 <Table
                     data={this.state.starships}
                     columns={this.columns}
-                    uniqueFieldName='name' />
+                    uniqueFieldName='id' />
             </>
         ) : null;
     }
@@ -109,10 +111,18 @@ class EncounterBuilderApp extends BaseApp {
         );
     }
 
-    renderActions(record) {
+    renderActions(id) {
         return (
-            <button className="btn btn-secondary">Add</button>
+            <button className="btn btn-secondary" onClick={() => this.handleAddShip(id)}>Add</button>
         )
+    }
+
+    handleAddShip(id) {
+        this.setState({
+            encounter: {
+                starships: [...this.state.encounter.starships, id],
+            }
+        })
     }
 
     handleSearch(searchTerm) {
