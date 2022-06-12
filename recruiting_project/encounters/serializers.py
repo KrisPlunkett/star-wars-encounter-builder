@@ -9,6 +9,7 @@ class StarshipSerializer(ModelSerializer):
     class Meta:
         model = Starship
         fields = [
+            'id',
             'name',
             'model',
             'starship_class_id',
