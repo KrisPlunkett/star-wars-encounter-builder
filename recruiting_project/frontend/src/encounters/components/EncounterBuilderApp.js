@@ -3,6 +3,7 @@ import { DebounceInput } from 'react-debounce-input';
 import BaseApp from 'core/components/BaseApp';
 import Table from 'core/components/Table';
 import request from 'utils/request';
+import EncounterStarships from './EncounterStarships';
 
 class EncounterBuilderApp extends BaseApp {
     constructor() {
@@ -94,8 +95,10 @@ class EncounterBuilderApp extends BaseApp {
         return (
             <>
                 <h4>Encounter Summary</h4>
-                <ul id="encounter-starships">
-                </ul>
+                <EncounterStarships
+                    encounterStarships={this.state.encounter.starships}
+                    handleRemoveShip={this.handleRemoveShip.bind(this)}
+                />
                 <form>
                     { this.renderCreateEncounterButton() }
                 </form>
@@ -111,18 +114,28 @@ class EncounterBuilderApp extends BaseApp {
         );
     }
 
-    renderActions(id) {
+    renderActions(rowKey, record, index) {
         return (
-            <button className="btn btn-secondary" onClick={() => this.handleAddShip(id)}>Add</button>
+            <button className="btn btn-secondary" onClick={() => this.handleAddShip(record)}>Add</button>
         )
     }
 
-    handleAddShip(id) {
+    handleAddShip(record) {
         this.setState({
             encounter: {
-                starships: [...this.state.encounter.starships, id],
+                starships: [...this.state.encounter.starships,  { name: record.name, id: record.id }],
             }
         })
+    }
+
+    handleRemoveShip(index) {
+        const starships = [...this.state.encounter.starships];
+        starships.splice(index, 1);
+        this.setState({
+            encounter: {
+                starships,
+            }
+        });
     }
 
     handleSearch(searchTerm) {
