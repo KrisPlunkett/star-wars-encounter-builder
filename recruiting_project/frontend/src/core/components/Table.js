@@ -38,23 +38,23 @@ class Table extends React.Component {
         );
     }
 
-    renderRow(record) {
-        let baseKey = record[this.props.uniqueFieldName];
+    renderRow(record, index) {
+        let baseKey = this.props.uniqueFieldName ? record[this.props.uniqueFieldName] : index;
         return (
             <tr key={baseKey}>
-                { this.props.columns.map(this.renderRowCell.bind(this, baseKey, record)) }
+                { this.props.columns.map(this.renderRowCell.bind(this, baseKey, record, index)) }
             </tr>
         )
     }
 
-    renderRowCell(rowKey, record, column) {
+    renderRowCell(rowKey, record, index, column) {
         return (
             <td key={rowKey + '-' + column.fieldName}>
                 {
                     (typeof column !== 'function') ? (
                         record[column.fieldName]
                     ) : (
-                        column(rowKey, record)
+                        column(rowKey, record, index)
                     )
                 }
             </td>
