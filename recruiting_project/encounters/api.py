@@ -1,3 +1,4 @@
+from rest_framework.parsers import FormParser, MultiPartParser, JSONParser
 from rest_framework.viewsets import ModelViewSet
 
 from recruiting_project.encounters.models import Starship, Encounter
@@ -29,6 +30,8 @@ class EncountersModelViewSet(ModelViewSet):
     """
     Model viewset for encounters API
     """
+    parser_classes = [JSONParser, FormParser, MultiPartParser]
+
     def get_serializer_class(self):
         if self.request.method == 'GET':
             return EncounterListSerializer
