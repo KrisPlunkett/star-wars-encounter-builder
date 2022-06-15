@@ -1,4 +1,10 @@
-from rest_framework.serializers import ModelSerializer, SerializerMethodField, CharField
+from rest_framework.serializers import (
+    CharField,
+    IntegerField,
+    ListField,
+    ModelSerializer,
+    SerializerMethodField,
+)
 
 from recruiting_project.encounters.models import Starship, Encounter, Mob
 
@@ -33,16 +39,40 @@ class MobSerializer(ModelSerializer):
         ]
 
 
-class EncounterSerializer(ModelSerializer):
+class EncounterListSerializer(ModelSerializer):
     mobs = SerializerMethodField()
 
     class Meta:
         model = Encounter
         fields = [
-            'name',
             'mobs',
+            'name',
+            'notes',
         ]
 
     def get_mobs(self, instance):
         return MobSerializer(instance.mobs, many=True).data
 
+
+class EncounterCreateSerializer(ModelSerializer):
+    mobs = ListField(
+        min_length=1,
+        allow_empty=False,
+        write_only=True,
+        child=IntegerField(min_value=1)  # Starship ID's from SWAPI start at 1
+    )
+
+    class Meta:
+        model = Encounter
+        fields = [
+            'mobs',
+            'name',
+            'notes',
+        ]
+
+    def create(self, validated_data):
+        encounter = Encounter.objects.create(name=validated_data.get('name'), notes=validated_data.get('notes'))
+        for mob in validated_data.get('mobs'):
+            starship = Starship.objects.get(id=mob)
+            Mob.objects.create(encounter=encounter, starship=starship)
+        return encounter

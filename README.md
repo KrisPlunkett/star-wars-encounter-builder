@@ -36,7 +36,7 @@ You will add several capabilities to the existing application:
 2. ~~Implement a change handler for the search input, live-filtering the table data based on a comparison of the input text and a union of starship name, model, and starship class name~~ (Resolved by [Pull Request #8](https://github.com/KrisPlunkett/star-wars-encounter-builder/pull/8))
 3. ~~Finish implementing the add button by adding a click handler that adds the associated starship to the encounter being edited~~ (Resolved by [Pull Request #9](https://github.com/KrisPlunkett/star-wars-encounter-builder/pull/9))
 4. ~~Create a new React component that will take the place of the existing `ul#encounter-starships`. The component should be a list of added starships, each with a button to remove from the encounter.~~ (Resolved by [Pull Request #10](https://github.com/KrisPlunkett/star-wars-encounter-builder/pull/10))
-5. Add a django form/view that takes a list of starships and creates an encounter with the given starships
+5. ~~Add a django form/view that takes a list of starships and creates an encounter with the given starships~~ (Resolved by [Pull Request #11](https://github.com/KrisPlunkett/star-wars-encounter-builder/pull/11))
 6. Finish implementing the "Create Encounter" button by adding a click handler that posts the form via ajax
 
 Once you're ready to submit, package the project as a compressed file, and share a link to the compressed package. Please be prepared to demo your project live in our technical interview.
