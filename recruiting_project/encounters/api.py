@@ -1,7 +1,11 @@
 from rest_framework.viewsets import ModelViewSet
 
 from recruiting_project.encounters.models import Starship, Encounter
-from recruiting_project.encounters.serializers import StarshipSerializer, EncounterSerializer
+from recruiting_project.encounters.serializers import (
+    EncounterCreateSerializer,
+    EncounterListSerializer,
+    StarshipSerializer,
+)
 
 
 class StarshipsModelViewSet(ModelViewSet):
@@ -21,12 +25,17 @@ class StarshipsModelViewSet(ModelViewSet):
             return Starship.objects.all()
 
 
-
 class EncountersModelViewSet(ModelViewSet):
     """
     Model viewset for encounters API
     """
-    serializer_class = EncounterSerializer
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return EncounterListSerializer
+        elif self.request.method == 'POST':
+            return EncounterCreateSerializer
+        else:
+            raise NotImplementedError
 
     def get_queryset(self):
         return Encounter.objects.all().prefetch_related('mobs__starship')
