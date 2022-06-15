@@ -45,6 +45,7 @@ class EncounterListSerializer(ModelSerializer):
     class Meta:
         model = Encounter
         fields = [
+            'id',
             'mobs',
             'name',
             'notes',
@@ -65,6 +66,7 @@ class EncounterCreateSerializer(ModelSerializer):
     class Meta:
         model = Encounter
         fields = [
+            'id',
             'mobs',
             'name',
             'notes',
