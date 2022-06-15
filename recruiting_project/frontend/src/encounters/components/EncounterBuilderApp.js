@@ -18,6 +18,8 @@ class EncounterBuilderApp extends BaseApp {
         ];
         this.state = {
             encounter: {
+                name: "",
+                notes: "",
                 starships: [],
             },
             starships: [],
@@ -95,23 +97,66 @@ class EncounterBuilderApp extends BaseApp {
         return (
             <>
                 <h4>Encounter Summary</h4>
+                <form>
+                    <div>
+                        <label htmlFor="name">Enter an encounter name</label>
+                        <input required={true} type="text" maxLength={256} placeholder="Name" name="name" value={this.state.encounter.name} onChange={this.handleEncounterNameChange.bind(this)}/>
+                    </div>
+                    <div>
+                        <label htmlFor="notes">Enter encounter notes</label>
+                        <textarea name="notes" placeholder="Notes" value={this.state.encounter.notes} onChange={this.handleEncounterNotesChange.bind(this)} />
+                    </div>
+                    { this.renderCreateEncounterButton() }
+                </form>
                 <EncounterStarships
                     encounterStarships={this.state.encounter.starships}
                     handleRemoveShip={this.handleRemoveShip.bind(this)}
                 />
-                <form>
-                    { this.renderCreateEncounterButton() }
-                </form>
             </>
         );
     }
 
+    handleEncounterNameChange(event) {
+        this.setState({
+            encounter: {
+                ...this.state.encounter,
+                name: event.target.value,
+            }
+        });
+    }
+
+    handleEncounterNotesChange(event) {
+        this.setState({
+            encounter: {
+                ...this.state.encounter,
+                notes: event.target.value,
+            }
+        });
+    }
+
     renderCreateEncounterButton() {
         return this.state.encounter.starships.length ? (
-            <button type="submit" className="btn btn-primary">Create Encounter</button>
+            <button type="button" onClick={this.handleSubmit.bind(this)} className="btn btn-primary">Create Encounter</button>
         ) : (
             <span>Add starships to encounter to create</span>
         );
+    }
+
+    handleSubmit() {
+        const { encounter } = this.state;
+        const payload = {
+            name: encounter.name,
+            notes: encounter.notes,
+            mobs: encounter.starships.map(starship => starship.id),
+        }
+        request.post('/encounters/api/encounters/', payload)
+            .then(response => {
+                const createdEncounterId = response.data.id;
+                window.location = `/encounters/api/encounters/${createdEncounterId}`;
+            }).catch(err => {
+                console.log(err);
+                window.alert("Failed to create encounter - see console for more info.");
+            });
     }
 
     renderActions(rowKey, record, index) {
@@ -123,6 +168,7 @@ class EncounterBuilderApp extends BaseApp {
     handleAddShip(record) {
         this.setState({
             encounter: {
+                ...this.state.encounter,
                 starships: [...this.state.encounter.starships,  { name: record.name, id: record.id }],
             }
         })
@@ -133,6 +179,7 @@ class EncounterBuilderApp extends BaseApp {
         starships.splice(index, 1);
         this.setState({
             encounter: {
+                ...this.state.encounter,
                 starships,
             }
         });
