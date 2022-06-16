@@ -81,9 +81,12 @@ class APITest(TestCase):
 
         # Make the request for all fighter starships
         c = Client()
-        # Filter by starship class name
+
+        # front end was written with a single "q" query param
+        # so API was modified to support a single param that
+        # could filter on multiple fields at once
         data = {
-            'starship_class__name': 'fighter'
+            'q': 'fighter'
         }
         response = c.get(reverse('starships-list'), data=data)
 

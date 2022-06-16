@@ -4,6 +4,8 @@ This project is a Django application that acts as an encounter builder for a Sta
 It uses starship data from the [Star Wars API](https://swapi.dev/) to allow a game master to build custom
 or random space encounters for players.
 
+![Kapture 2022-06-15 at 16 52 22](https://user-images.githubusercontent.com/6193588/173936939-f1213847-359f-4b03-a615-d9088e8bd25a.gif)
+
 ### Objective
 
 This project is meant to gauge your ability to take requirements and apply them by extending an existing application similar to our own.
@@ -41,3 +43,15 @@ You will add several capabilities to the existing application:
 
 Once you're ready to submit, package the project as a compressed file, and share a link to the compressed package. Please be prepared to demo your project live in our technical interview.
 
+### Future Improvements
+
+The following tasks were out of scope for the initial project but could be valuable future improvements:
+- Add front end test for React components with [RTL](https://testing-library.com/docs/react-testing-library/intro)
+- Add back end unit tests with [pytest](https://docs.pytest.org/en/7.1.x/)
+- Containerize for simpler startup and greater portability ([Reference](https://docs.docker.com/samples/django/)
+- Upgrade to Django 4 (current version went [EOL August 2020](https://endoflife.date/django))
+- Refactor large class based components into a series of smaller, stateless function components and manage state with the State Hook ([Reference](https://leandroercoli.medium.com/react-refactoring-from-class-to-function-components-and-hooks-74f176ea77d6))
+- Use [Black](https://github.com/psf/black) and [Flake8](https://flake8.pycqa.org/en/latest/) to lint and format Python
+- Use [eslint](https://eslint.org/) and [prettier](https://prettier.io/) to lint and format JS
+- Pin Python dependencies with [Poetry](https://python-poetry.org/)
+- Pin JS dependencies by removing `package-lock.json` from [.gitignore](https://github.com/KrisPlunkett/star-wars-encounter-builder/blob/9acea6564a115b9c07e740cb5fbe6aa0033d7b77/.gitignore#L33-L33)
